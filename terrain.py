@@ -1,4 +1,5 @@
 from random import random
+from math import cos, sin, pi
 
 from panda3d.core import (
     Geom,
@@ -12,23 +13,32 @@ from panda3d.core import (
 from pyhull.delaunay import DelaunayTri
 
 
-def random_2d_point(x, y):
-    return (random() - 0.5) * x, (random() - 0.5) * y
+def random_in_circle():
+    t = 2 * pi * random()
+    u = random () + random()
+    r = 2 - u if u > 1 else u
+    return r * cos(t), r * sin(t)
+
 
 class Landmarks:
 
-    def __init__(self, width, length, density):
+    def __init__(self, diameter, density):
         self.fmt = GeomVertexFormat.getV3c4()
-        self.width = width
-        self.length = length
-        ground_points = []
-        for i in range(int(width * length * density)):
-            ground_points.append(random_2d_point(width, length))
-        triangulation = DelaunayTri(ground_points)
+        self.diameter = diameter
+        r = diameter / 2
+        # Sample random points in a 2d plane
+        points_2d = []
+        for i in range(int(density * pi * r**2)):
+            x, y = random_in_circle()
+            points_2d.append((x * r, y * r))
+        # Compute triangulations
+        triangulation = DelaunayTri(points_2d)
+        # Save triangulations and add a 3rd dimension to points
         self.points = []
         for x, y in triangulation.points:
-            self.points.append(Vec3(x, y, random()))
+            self.points.append(Vec3(x, y, 0.0))
         self.vertices = triangulation.vertices
+        print(len(self.points))
 
     def primitives(self, vdata):
         vertex = GeomVertexWriter(vdata, 'vertex')

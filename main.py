@@ -13,9 +13,9 @@ class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         # Landmarks
-        landmarks = Landmarks(20000, 30000, 1.0/1000000)
+        landmarks = Landmarks(10000, 2.5/1000000)
         nodePath =self.render.attachNewNode(landmarks.node())
-        nodePath.setRenderModeThickness(2)
+        nodePath.setRenderModeThickness(1)
         # Box
         border = (
             Vec3(0.0, 0.0, 0.0),

@@ -5,16 +5,20 @@ from direct.task import Task
 from panda3d.core import Vec3
 
 from buildings import Building
-from terrain import Landmarks
+from terrain import Terrain, Landmarks
 
 
 class MyApp(ShowBase):
 
     def __init__(self):
         ShowBase.__init__(self)
+        # Terrain
+        terarin = Terrain()
+        nodePath = self.render.attachNewNode(terarin.node())
+        nodePath.setRenderModeThickness(1)
         # Landmarks
         landmarks = Landmarks(10000, 2.5/1000000)
-        nodePath =self.render.attachNewNode(landmarks.node())
+        nodePath = self.render.attachNewNode(landmarks.node())
         nodePath.setRenderModeThickness(1)
         # Box
         border = (

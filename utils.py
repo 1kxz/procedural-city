@@ -10,3 +10,7 @@ def center(points):
 
 def lerp(a, b, t=0.5):
     return a + (b - a) * t
+
+
+def dot(a, b):
+    return a.x * b.x + a.y * b.y + a.z * b.z

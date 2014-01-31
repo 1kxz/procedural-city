@@ -14,3 +14,7 @@ def lerp(a, b, t=0.5):
 
 def dot(a, b):
     return a.x * b.x + a.y * b.y + a.z * b.z
+
+
+def prod(a, b):
+    return Vec3(a.x * b.x, a.y * b.y, a.z * b.z)

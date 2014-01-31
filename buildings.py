@@ -28,7 +28,7 @@ class Level:
             vertex.addData3f(p.x, p.y, p.z)
             color.addData4f(0.5, 0.5, 0.5, 0.0)
         for p in self.border:
-            vertex.addData3f(p.x, p.y, self.top)
+            vertex.addData3f(p.x, p.y, p.z + self.top)
             color.addData4f(1.0, 1.0, 1.0, 0.0)
         # Wall
         wall = GeomTristrips(Geom.UHStatic)
@@ -66,7 +66,7 @@ class Building:
         self.levels = []
         n = len(tops)
         for i in range(n):
-            border = [Vec3(p.x, p.y, i * 2.5) for p in self.border]
+            border = [Vec3(p.x, p.y, p.z + i * 2.5) for p in self.border]
             c = center(border)
             border = [lerp(p, c, 1 - 0.99 ** i) for p in border]
             top = (i + 1) * 2.5

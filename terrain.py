@@ -146,11 +146,11 @@ class Landmarks:
             road = GeomTristrips(Geom.UHStatic)
             for i in range(0, int(probes) + 1):
                 p = a + ab / probes * i
-                z = elevation(p.x, p.y) + 0.3
                 p1 = p + pab
-                p1.z = z
                 p2 = p - pab
-                p2.z = z
+                z = max(elevation(p1.x, p1.y), elevation(p2.x, p2.y))
+                p1.z = z + 0.2
+                p2.z = z + 0.2
                 vertex.addData3f(p1)
                 vertex.addData3f(p2)
                 if inc > 0.1:
